@@ -1,4 +1,5 @@
 const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+const axios = require('axios');
 class Submission {
   /**
    * Executes your task, optionally storing the result.
@@ -10,7 +11,10 @@ class Submission {
     console.log('Started Task', new Date(), process.env.TEST_KEYWORD)
     try {
       console.log('ROUND', round);
-      const value = 'Hello, World!';
+      console.log('Request specific ')
+      const art = await axios.get('https://api.artic.edu/api/v1/artworks?page=1&limit=1')
+      console.log('ART', art)
+      const value = "COPYRIGHT";
       // Store the result in NeDB (optional)
       if (value) {
         await namespaceWrapper.storeSet('value', value);
