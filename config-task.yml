@@ -1,9 +1,9 @@
 # Name and metadata of your task
-task_name: 'task name'
-author: 'Koii'
-description: 'description'
-repositoryUrl: 'https://github.com/koii-network/task-template' #replace with your own repo url
-imageUrl: 'imageUrl'
+task_name: 'art-copyright-checker'
+author: 'kidneyweakx'
+description: 'check the nft art is copyrighted or not'
+repositoryUrl: 'https://github.com/kidneyweakx/ethcc-koii' #replace with your own repo url
+imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq10gYXsQjI1uLya6MjHpGkLIX5kzVNQYOaQ&s'
 
 # task_executable_network : DEVELOPMENT, ARWEAVE or IPFS
 # IPFS is the default value, as the CLI automatically manages the upload process via the Koii Storage SDK.

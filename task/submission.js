@@ -13,8 +13,10 @@ class Submission {
       console.log('ROUND', round);
       console.log('Request specific ')
       const art = await axios.get('https://api.artic.edu/api/v1/artworks?page=1&limit=1')
-      console.log('ART', art)
-      const value = "COPYRIGHT";
+      let value = "NOT COPYRIGHT"
+      if (art.copyright_notice === null){
+        value = "COPYRIGHT"
+      }
       // Store the result in NeDB (optional)
       if (value) {
         await namespaceWrapper.storeSet('value', value);
