@@ -12,7 +12,14 @@ class Submission {
     try {
       console.log('ROUND', round);
       console.log('Request specific ')
-      const art = await axios.get('https://api.artic.edu/api/v1/artworks?page=1&limit=1')
+      let taskArt;
+      try {
+        taskArt = await axios.get('http://localhost:3000/task')
+      } catch (error) {
+        taskArt = 1
+      }
+
+      const art = await axios.get(`https://api.artic.edu/api/v1/artworks?page=${taskArt}&limit=1`)
       let value = "NOT COPYRIGHT"
       if (art.copyright_notice === null){
         value = "COPYRIGHT"
