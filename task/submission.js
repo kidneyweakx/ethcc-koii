@@ -1,5 +1,6 @@
 const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 const axios = require('axios');
+const getIPFSData = require('./nftCopyright/getNFTcid');
 class Submission {
   /**
    * Executes your task, optionally storing the result.
@@ -11,25 +12,20 @@ class Submission {
     console.log('Started Task', new Date(), process.env.TEST_KEYWORD)
     try {
       console.log('ROUND', round);
-      console.log('Request specific ')
-      let taskArt;
-      try {
-        taskArt = await axios.get('http://localhost:3000/task')
-      } catch (error) {
-        taskArt = 1
+
+      const getRandom = (min, max) => {
+        return Math.floor(Math.random() * (max - min) + min);
       }
 
-      const art = await axios.get(`https://api.artic.edu/api/v1/artworks?page=${taskArt}&limit=1`)
-      let value = "NOT COPYRIGHT"
-      if (art.copyright_notice === null){
-        value = "COPYRIGHT"
-      }
-      // Store the result in NeDB (optional)
-      if (value) {
-        await namespaceWrapper.storeSet('value', value);
-      }
-      // Optional, return your task
-      return value;
+      const validNum = getRandom(1, process.env.MAX_TOKEN_ID);
+      const data = await getIPFSData(process.env.NFT_ADDRESS, validNum);
+      const image = data.image
+
+      const ipfsCID = image.split('ipfs://')[1];
+      console.log('IPFS CID', ipfsCID);
+
+      await namespaceWrapper.storeSet('value', ipfsCID);
+      return ipfsCID
     } catch (err) {
       console.log('ERROR IN EXECUTING TASK', err);
       return 'ERROR IN EXECUTING TASK' + err;

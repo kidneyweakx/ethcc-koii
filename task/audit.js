@@ -1,4 +1,5 @@
 const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+const { parse } = require('dotenv');
 
 class Audit {
   /**
@@ -12,9 +13,14 @@ class Audit {
     let vote;
     console.log('SUBMISSION VALUE', submission_value, round);
     try {
-      // Verify the value
-      if (submission_value == 'COPYRIGHT') {
-        vote = true;
+      const qid = submission_value.split('/')[0]
+      // submission value = QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg + token id
+      
+      if (qid === 'QmYDvPAXtiJg7s8JdRBSLWdgSphQdac8j1YuQNNxcGE1hg') {
+        console.log(submission_value.split('/')[1].split('.')[0])
+        if (parseInt(submission_value.split('/')[1].split('.')[0]) <= parseInt(process.env.MAX_TOKEN_ID)) {
+          vote = true;
+        }
       } else {
         vote = false;
       }
